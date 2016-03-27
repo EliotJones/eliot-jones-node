@@ -1,8 +1,8 @@
 var gulp = require("gulp");
 var typescriptBuilder = require("gulp-typescript");
-var flatten = require("gulp-flatten");
 var sourcemaps = require("gulp-sourcemaps");
 var del = require("del");
+var rename = require("gulp-rename");
 
 var tsConfig = typescriptBuilder.createProject("./tsconfig.json");
 
@@ -10,8 +10,24 @@ gulp.task("build", ["clean", "copyView"], function() {
     return tsConfig.src()
         .pipe(sourcemaps.init())
         .pipe(typescriptBuilder(tsConfig)).js
-        .pipe(flatten({ newPath: "" }))
-        .pipe(sourcemaps.write("./", { includeContent: false, sourceRoot: "../" }))
+        .pipe(rename(function (path) {
+            path.dirname = path.dirname.replace("src", "")
+        }))
+        .pipe(sourcemaps.write("./", 
+        { 
+            includeContent: false, 
+            sourceRoot: function (file) {
+                var subDirectories = (file.relative.match(/\\/g) || []).length;
+                
+                var relativePath = "../";
+                
+                for (var i = 0; i < subDirectories; i++) {
+                    relativePath += "../";               
+                }
+                
+                return relativePath;
+            } 
+        }))
         .pipe(gulp.dest("web/"));
 });
 

@@ -14,13 +14,13 @@
   "devDependencies": {
     "del": "^2.2.0",
     "gulp": "^3.9.1",
-    "gulp-typescript": "^2.12.1",
-    "gulp-flatten": "~0.2.0",
-    "gulp-sourcemaps": "^1.6.0"
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-typescript": "^2.12.1"
   },
   "dependencies": {
-      "express":"^4.13.4",
-      "express-handlebars": "^3.0.0",
-      "typescript": "~1.8.9"
+    "express": "^4.13.4",
+    "express-handlebars": "^3.0.0",
+    "typescript": "~1.8.9"
   }
 }
