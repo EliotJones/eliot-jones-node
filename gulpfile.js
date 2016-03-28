@@ -3,6 +3,7 @@ var typescriptBuilder = require("gulp-typescript");
 var sourcemaps = require("gulp-sourcemaps");
 var del = require("del");
 var rename = require("gulp-rename");
+var mocha = require("gulp-mocha");
 
 var tsConfig = typescriptBuilder.createProject("./tsconfig.json");
 
@@ -38,7 +39,20 @@ gulp.task("copyView", function(){
 
 gulp.task("clean", function(){
     return del["web/**/*"];
-})
+});
+ 
+var tsConfigTests = typescriptBuilder.createProject("tests/tsconfig.json");
+gulp.task("buildTests", function () {
+    // pipe in all necessary files
+    return tsConfigTests.src()
+        .pipe(typescriptBuilder(tsConfigTests)).js 
+        .pipe(gulp.dest("tests"));
+});
+
+gulp.task("test", ["buildTests"], function () {
+    return gulp.src("./tests/*.js", { read: false }) 
+        .pipe(mocha());
+});
 
 gulp.task("watch", function(){
     gulp.watch("src/**/*.ts", ["build"]);

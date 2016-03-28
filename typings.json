@@ -1,0 +1,8 @@
+{
+  "ambientDependencies": {
+    "mocha": "registry:dt/mocha#2.2.5+20160317120654"
+  },
+  "ambientDevDependencies": {
+    "marked": "registry:dt/marked#0.0.0+20160325085301"
+  }
+}

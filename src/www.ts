@@ -1,10 +1,10 @@
 import app from "./app";
 import * as http from "http";
 
-app.set("port", 3000);
+app.set("port", 3001);
 
 const server = http.createServer(app);
-server.listen(3000);
+server.listen(3001);
 server.on("listening", onListening);
 
 function onListening() {
